@@ -67,12 +67,22 @@ export function Navbar() {
             Start over
           </button>
         )}
-        <button className="rounded-lg px-4 py-1.5 text-xs font-medium border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 transition-all cursor-pointer">
+        <a
+          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-lg px-4 py-1.5 text-xs font-medium border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 transition-all cursor-pointer"
+        >
           Log in
-        </button>
-        <button className="rounded-lg px-4 py-1.5 text-xs font-bold bg-emerald-500 hover:bg-emerald-600 text-black transition-colors cursor-pointer">
+        </a>
+        <a
+          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-lg px-4 py-1.5 text-xs font-bold bg-emerald-500 hover:bg-emerald-600 text-black transition-colors cursor-pointer"
+        >
           Sign up
-        </button>
+        </a>
       </div>
     </nav>
   )

@@ -17,12 +17,12 @@ import { ColumnHistogram } from '@/lib/types'
 
 function KLBadge({ score }: { score: number }) {
   if (score < 0.05) {
-    return <span className="text-[10px] font-mono text-green-400">KL {score.toFixed(4)} ✓</span>
+    return <span className="text-[10px] font-mono text-emerald-400">KL {score.toFixed(4)} ✓</span>
   }
   if (score < 0.15) {
-    return <span className="text-[10px] font-mono text-amber-400">KL {score.toFixed(4)}</span>
+    return <span className="text-[10px] font-mono text-cyan-400">KL {score.toFixed(4)}</span>
   }
-  return <span className="text-[10px] font-mono text-red-400">KL {score.toFixed(4)}</span>
+  return <span className="text-[10px] font-mono text-violet-400">KL {score.toFixed(4)}</span>
 }
 
 // ── Histogram card ───────────────────────────────────────────────────────────
@@ -300,10 +300,10 @@ export function Results() {
 
   const klColor =
     meanKlDivergence < 0.05
-      ? 'text-emerald-500'
+      ? 'text-emerald-400'
       : meanKlDivergence < 0.2
-        ? 'text-amber-400'
-        : 'text-red-400'
+        ? 'text-cyan-400'
+        : 'text-violet-400'
 
   return (
     <section className="max-w-4xl mx-auto px-8 py-12 border-t border-zinc-800">
@@ -323,13 +323,13 @@ export function Results() {
                 ? 'Excellent fidelity'
                 : meanKlDivergence < 0.2
                   ? 'Good fidelity'
-                  : 'Degraded fidelity'}
+                  : 'Moderate divergence'}
             </p>
           </div>
           <div className="flex-1 space-y-2">
             {histograms.map((h) => {
               const barColor =
-                h.klDivergence < 0.05 ? '#10b981' : h.klDivergence < 0.2 ? '#f59e0b' : '#ef4444'
+                h.klDivergence < 0.05 ? '#10b981' : h.klDivergence < 0.2 ? '#06b6d4' : '#a78bfa'
               const barWidth = Math.min(100, h.klDivergence * 600)
               return (
                 <div key={h.column} className="flex items-center gap-3">

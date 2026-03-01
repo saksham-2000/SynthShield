@@ -18,7 +18,7 @@ function TickerRow() {
         >
           <span
             className="ticker-rainbow text-sm font-semibold tracking-wide px-2"
-            style={{ animationDelay: `${i * 1.1}s` }}
+            style={{ animationDelay: `${i * 0.8}s` }}
           >
             {text}
           </span>

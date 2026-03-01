@@ -22,7 +22,7 @@ export function Hero() {
         }}
       />
 
-      <div className="relative max-w-4xl mx-auto px-8">
+      <div className="relative max-w-4xl mx-auto px-2">
         {/* Icon + Heading */}
         <div className="flex flex-col items-center gap-5">
           <Image
@@ -32,18 +32,26 @@ export function Hero() {
             height={144}
             className="invert opacity-70"
           />
-          <h1 className="text-8xl md:text-10xl font-bold tracking-tight text-yellow-100 leading-[1.05]">
+          <h1
+            className="text-7xl md:text-9xl font-bold tracking-tight leading-[1.05]"
+            style={{
+              background: 'linear-gradient(135deg, #f4f4f5 0%, #a1a1aa 60%, #10b981 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
             SynthShield
           </h1>
         </div>
 
-        {/* Subtitle — main pitch, soft mint green (distinct from ticker rainbow), zooms on hover */}
+        {/* Subtitle — main pitch, emerald-tinted, zooms on hover */}
         <motion.p
-          className="font-bold text-orange-300 text-2xl max-w-xl mx-auto mt-4 leading-relaxed cursor-default"
-          whileHover={{ scale: 1.10, color: 'rgba(247,180,20,1)' }}
+          className="italic font-medium text-emerald-400/80 text-xl md:text-2xl max-w-xl mx-auto mt-6 leading-relaxed cursor-default"
+          whileHover={{ scale: 1.05, color: 'rgba(52,161,153,1)' }}
           transition={{ duration: 0.35, ease: 'easeOut' }}
         >
-          Safely train models with statistically equivalent synthetic data.
+          Safely train models with statistically equivalent <span className="text-green-200">synthetic data.</span>
         </motion.p>
       </div>
     </section>
