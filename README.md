@@ -4,7 +4,7 @@
 
 <br>
 
-SynthShield lets you upload a sensitive CSV, tune a privacy budget, and get back a synthetic dataset that your models can train on without you ever exposing a real record. Built on top of a T5-small seq2seq model with LoRA adapters, trained end-to-end through Opacus.
+SynthShield lets you upload a sensitive CSV, tune a privacy budget, and get back a synthetic dataset that your models can train on without you ever exposing a real record. Built on top of a T5-small seq2seq model with LoRA adapters, optimized for differentially private training (DP-SGD) using Opacus.
 
 <br>
 
