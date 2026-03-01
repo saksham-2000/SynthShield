@@ -1,16 +1,20 @@
 # SynthShield: Guaranteed Synthetic Data
 
-> Train your models. Protect your people.
+> Train your models. Protect your precious data.
 
-SynthShield lets you upload a sensitive CSV, tune a privacy budget, and get back a synthetic dataset that your models can train on without you ever exposing a real record. The privacy guarantee is not a marketing claim; it comes from a differentially private fine-tuning pipeline built on top of a T5-small seq2seq model with LoRA adapters, trained end-to-end through Opacus.
+<br>
 
-Built in 24 hours at **CheeseHacks 2026** (Feb 28 - Mar 1, 2026).
+SynthShield lets you upload a sensitive CSV, tune a privacy budget, and get back a synthetic dataset that your models can train on without you ever exposing a real record. Built on top of a T5-small seq2seq model with LoRA adapters, trained end-to-end through Opacus.
+
+<br>
 
 **Live demo:** https://synthshield-frontend-497796918458.us-central1.run.app
-**Backend API:** https://csv-backend-181842386878.us-central1.run.app/process
+<br>
 **GitHub:** https://github.com/saksham-2000/SynthShield
 
 ---
+
+Built in 24 hours at **CheeseHacks 2026** (Feb 28 - Mar 1, 2026).
 
 **Team: Cheddar++**
 
@@ -25,7 +29,6 @@ Built in 24 hours at **CheeseHacks 2026** (Feb 28 - Mar 1, 2026).
 
 The datasets that would train the best models are exactly the ones you cannot freely share. Healthcare records, financial histories, user behavior logs: all locked behind HIPAA, GDPR, and SOC 2 compliance requirements that make exposing them, even internally, a genuine liability.
 
-Standard anonymization is famously breakable. k-anonymity gets defeated by linkage attacks. Scrubbing PII by hand does not remove correlations. And standing up a full data vault is infrastructure most teams do not have.
 
 SynthShield generates synthetic records that are statistically equivalent to the originals at the population level, while providing a formal, mathematical guarantee that no individual row is recoverable.
 
