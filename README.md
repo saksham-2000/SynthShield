@@ -1,14 +1,23 @@
-# SynthShield — Guaranteed Synthetic Data
+# SynthShield: Guaranteed Synthetic Data
 
-> **Train your models. Protect your people.**
+> **Train your models. Protect your precious data.**
 
 SynthShield transforms sensitive CSV datasets into statistically equivalent synthetic copies — using differential privacy to give you a mathematical guarantee that no real individual is recoverable from the output. Upload a file, tune your privacy budget, and walk away with synthetic data your models can actually train on.
 
 Built in 24 hours at **CheeseHacks 2026** (Feb 28 – Mar 1, 2026).
 
-**Live demo:** https://synthshield-frontend-[your-run-id].us-central1.run.app
-**Backend API:** https://csv-backend-181842386878.us-central1.run.app/process
+**Live demo:** [https://synthshield-frontend-497796918458.us-central1.run.app ](https://synthshield-frontend-497796918458.us-central1.run.app/)
+<br>
 **GitHub:** https://github.com/saksham-2000/SynthShield
+
+---
+
+**Team: Cheddar++**
+- [Saksham Garg](https://github.com/saksham-2000)
+- [Rohan Gupta](https://github.com/rohankrgupta)
+- [Jeevesh Mahajan](https://github.com/jeevesh28)
+- [Keshav Handa](https://github.com/koder2223)
+
 
 ---
 
@@ -248,8 +257,6 @@ The backend runs as a separate Cloud Run service, also scales to zero.
 
 This project was built from scratch during the CheeseHacks 2026 hackathon, February 28 to March 1, 2026.
 
-**Team**
-- Saksham Garg
 
 **Hackathon:** CheeseHacks 2026
 **Event site:** https://cheesehacks.dev/
