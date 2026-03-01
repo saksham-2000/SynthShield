@@ -1,0 +1,80 @@
+name: Deploy Frontend → Cloud Run
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/deploy-frontend.yml"
+
+# ── Shared config ─────────────────────────────────────────────────────────────
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: us-central1
+  SERVICE: synthshield-frontend
+  # Artifact Registry repo path  →  REGION-docker.pkg.dev/PROJECT/REPO
+  REGISTRY: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/synthshield
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Authenticate to GCP with the service-account JSON key
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      # 3. Install gcloud SDK
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # 4. Allow Docker to push to Artifact Registry
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+
+      # 5. Build the image from the frontend/ subfolder
+      - name: Build Docker image
+        working-directory: frontend
+        run: |
+          docker build \
+            -t ${{ env.REGISTRY }}/frontend:${{ github.sha }} \
+            -t ${{ env.REGISTRY }}/frontend:latest \
+            .
+
+      # 6. Push both tags
+      - name: Push Docker image
+        run: |
+          docker push ${{ env.REGISTRY }}/frontend:${{ github.sha }}
+          docker push ${{ env.REGISTRY }}/frontend:latest
+
+      # 7. Deploy to Cloud Run (scales to 0 when idle → ~$0 when not in use)
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE }} \
+            --image ${{ env.REGISTRY }}/frontend:${{ github.sha }} \
+            --region ${{ env.REGION }} \
+            --platform managed \
+            --allow-unauthenticated \
+            --port 3000 \
+            --memory 512Mi \
+            --cpu 1 \
+            --min-instances 0 \
+            --max-instances 3 \
+            --quiet
+
+      # 8. Print the live URL
+      - name: Print service URL
+        run: |
+          gcloud run services describe ${{ env.SERVICE }} \
+            --region ${{ env.REGION }} \
+            --format "value(status.url)"
