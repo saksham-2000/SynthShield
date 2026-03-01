@@ -24,16 +24,16 @@ export function Hero() {
 
       <div className="relative max-w-4xl mx-auto px-2">
         {/* Icon + Heading */}
-        <div className="flex flex-col items-center gap-5">
+        <div className="flex flex-col items-center gap-2">
           <Image
             src="/privacy-icon.svg"
             alt="SynthShield"
-            width={144}
-            height={144}
+            width={192}
+            height={192}
             className="invert opacity-70"
           />
           <h1
-            className="text-7xl md:text-9xl font-bold tracking-tight leading-[1.05]"
+            className="text-7xl md:text-9xl  tracking-tight leading-[1.05]"
             style={{
               background: 'linear-gradient(135deg, #f4f4f5 0%, #a1a1aa 60%, #10b981 100%)',
               WebkitBackgroundClip: 'text',

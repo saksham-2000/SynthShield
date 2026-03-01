@@ -17,7 +17,7 @@ function TickerRow() {
           style={{ animationDelay: `${i * 0.8}s` }}
         >
           <span
-            className="ticker-rainbow text-sm font-semibold tracking-wide px-2"
+            className="ticker-rainbow text-md font-semibold tracking-wide px-2"
             style={{ animationDelay: `${i * 0.8}s` }}
           >
             {text}
@@ -32,7 +32,7 @@ function TickerRow() {
 export function Ticker() {
   return (
     <div
-      className="ticker-fade w-full overflow-hidden py-3.5 select-none"
+      className="ticker-fade w-full overflow-hidden py-1.5 select-none"
       aria-hidden="true"
     >
       <div className="ticker-track flex whitespace-nowrap">

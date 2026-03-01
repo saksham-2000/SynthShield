@@ -157,7 +157,7 @@ input[type='range']::-moz-range-thumb {
 }
 
 .ticker-item {
-  animation: brownian 16.5s ease-in-out infinite;
+  animation: brownian 27.5s ease-in-out infinite;
 }
 
 /* ── Ticker edge fade (blends into background) ─────────────────────────────── */
