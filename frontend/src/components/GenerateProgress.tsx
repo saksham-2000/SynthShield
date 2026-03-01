@@ -44,14 +44,14 @@ export function GenerateProgress() {
               className="flex gap-2 mb-1.5"
             >
               <span className="text-zinc-700 shrink-0">&gt;</span>
-              <span className="text-emerald-400">{step.log}</span>
+              <span className="text-yellow-200/80">{step.log}</span>
             </motion.div>
           ))}
         </AnimatePresence>
 
         {progressPercent < 100 && (
           <motion.span
-            className="inline-block w-2 h-4 bg-emerald-500 ml-6 align-middle"
+            className="inline-block w-2 h-4 bg-yellow-200/60 ml-6 align-middle"
             animate={{ opacity: [1, 0, 1] }}
             transition={{ repeat: Infinity, duration: 1 }}
           />
@@ -61,7 +61,7 @@ export function GenerateProgress() {
 
       {/* Footer */}
       <div className="mt-4 flex flex-wrap gap-4 text-xs text-zinc-600">
-        <span>ε = <span className="text-emerald-500">{epsilon.toFixed(1)}</span></span>
+        <span>ε = <span className="text-emerald-500">{Math.round(epsilon)}</span></span>
         <span>·</span>
         <span>Laplace noise injected</span>
         <span>·</span>

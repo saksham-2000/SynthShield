@@ -93,7 +93,7 @@ input[type='range']::-moz-range-thumb {
 }
 
 .ticker-track {
-  animation: ticker 55s linear infinite;
+  animation: ticker 35s linear infinite;
   width: max-content;
 }
 

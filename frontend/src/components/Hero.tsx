@@ -1,7 +1,7 @@
 export function Hero() {
   return (
     <section
-      className="relative w-full pt-32 pb-24 text-center overflow-hidden"
+      className="relative w-full pt-32 pb-4 text-center overflow-hidden"
       style={{
         background:
           'radial-gradient(ellipse 80% 50% at 50% -10%, rgba(16,185,129,0.08), transparent)',
@@ -27,11 +27,6 @@ export function Hero() {
         <p className="text-zinc-400 text-lg max-w-md mx-auto mt-6 leading-relaxed">
           Transform sensitive records into mathematically private synthetic clones.
         </p>
-
-        <div className="flex flex-col items-center gap-2 mt-20 text-zinc-700 text-xs select-none">
-          <span>scroll to begin</span>
-          <span className="animate-bounce">↓</span>
-        </div>
       </div>
     </section>
   )

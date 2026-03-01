@@ -1,6 +1,9 @@
 import { useCallback } from 'react'
+import Papa from 'papaparse'
 import { useAppStore } from '@/store/appStore'
 import { generateSyntheticData, computeHistograms } from '@/lib/stats'
+
+const BACKEND_URL = 'https://csv-backend-181842386878.us-central1.run.app/process'
 
 const PROGRESS_STEPS = [
   'Parsing column schema...',
@@ -31,35 +34,54 @@ export function useSynthesize() {
 
     startGeneration()
 
-    // Animate progress steps
-    for (let i = 0; i < PROGRESS_STEPS.length; i++) {
-      await delay(350 + Math.random() * 300)
-      addProgressStep(PROGRESS_STEPS[i])
-      setProgressPercent(Math.round(((i + 1) / PROGRESS_STEPS.length) * 100))
+    // ── Run animation + API call concurrently ─────────────────────────────
+    // Animation is guaranteed ≥6s. Results only show when BOTH finish.
+
+    const runAnimation = async () => {
+      for (let i = 0; i < PROGRESS_STEPS.length; i++) {
+        // 900–1200ms per step × 7 steps = 6.3–8.4s minimum
+        await delay(900 + Math.random() * 300)
+        addProgressStep(PROGRESS_STEPS[i])
+        setProgressPercent(Math.round(((i + 1) / PROGRESS_STEPS.length) * 100))
+      }
     }
 
-    // Try backend, fall back to client-side DP simulation
-    let syntheticRows: Record<string, string>[]
+    const fetchSynthetic = async (): Promise<Record<string, string>[]> => {
+      try {
+        // Reconstruct CSV from parsed dataset rows + headers
+        const csvString = Papa.unparse({
+          fields: dataset.headers,
+          data: dataset.rows.map((row) => dataset.headers.map((h) => row[h] ?? '')),
+        })
+        const blob = new Blob([csvString], { type: 'text/csv' })
+        const file = new File([blob], dataset.fileName || 'dataset.csv', { type: 'text/csv' })
 
-    try {
-      const res = await fetch('http://localhost:8000/synthesize', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          rows: dataset.rows,
-          headers: dataset.headers,
-          epsilon,
-        }),
-        signal: AbortSignal.timeout(8000),
-      })
+        const formData = new FormData()
+        formData.append('file', file)
 
-      if (!res.ok) throw new Error('Backend returned non-OK status')
-      const data = await res.json()
-      syntheticRows = data.synthetic_rows
-    } catch {
-      // Client-side fallback — fully working DP simulation
-      syntheticRows = generateSyntheticData(dataset, epsilon)
+        const res = await fetch(BACKEND_URL, {
+          method: 'POST',
+          body: formData,
+          signal: AbortSignal.timeout(60_000), // 60s — model call may be slow
+        })
+
+        if (!res.ok) throw new Error(`Backend error: ${res.status}`)
+
+        const csvText = await res.text()
+        const parsed = Papa.parse<Record<string, string>>(csvText, {
+          header: true,
+          skipEmptyLines: true,
+        })
+        if (!parsed.data.length) throw new Error('Backend returned empty CSV')
+        return parsed.data
+      } catch (err) {
+        console.warn('Backend unavailable, using client-side DP fallback:', err)
+        return generateSyntheticData(dataset, epsilon)
+      }
     }
+
+    // Wait for BOTH — whichever is slower decides when results appear
+    const [, syntheticRows] = await Promise.all([runAnimation(), fetchSynthetic()])
 
     const { histograms, meanKlDivergence } = computeHistograms(
       dataset.rows,

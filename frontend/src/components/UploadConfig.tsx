@@ -10,20 +10,20 @@ import { ParsedDataset } from '@/lib/types'
 // ── Epsilon helpers ─────────────────────────────────────────────────────────
 
 function epsilonColor(eps: number) {
-  if (eps <= 2) return 'text-emerald-500'
-  if (eps <= 5) return 'text-amber-400'
+  if (eps <= 20) return 'text-emerald-500'
+  if (eps <= 50) return 'text-amber-400'
   return 'text-red-400'
 }
 
 function epsilonPillStyle(eps: number) {
-  if (eps <= 2) return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-  if (eps <= 5) return 'bg-amber-400/10 text-amber-400 border-amber-400/30'
+  if (eps <= 20) return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+  if (eps <= 50) return 'bg-amber-400/10 text-amber-400 border-amber-400/30'
   return 'bg-red-500/10 text-red-400 border-red-500/30'
 }
 
 function epsilonLabel(eps: number) {
-  if (eps <= 2) return 'Strong guarantee'
-  if (eps <= 5) return 'Moderate guarantee'
+  if (eps <= 20) return 'Strong guarantee'
+  if (eps <= 50) return 'Moderate guarantee'
   return 'Low guarantee'
 }
 
@@ -212,15 +212,15 @@ export function UploadConfig() {
 
           {/* Big epsilon display */}
           <p className={`text-4xl font-bold tracking-tight mt-2 transition-colors ${epsilonColor(epsilon)}`}>
-            ε = {epsilon.toFixed(1)}
+            ε = {Math.round(epsilon)}
           </p>
 
           {/* Slider */}
           <input
             type="range"
             min={1}
-            max={10}
-            step={0.1}
+            max={100}
+            step={1}
             value={epsilon}
             onChange={(e) => setEpsilon(parseFloat(e.target.value))}
             className="w-full mt-4"
@@ -228,8 +228,8 @@ export function UploadConfig() {
 
           {/* Labels */}
           <div className="flex justify-between text-zinc-600 text-xs mt-1">
-            <span>High Privacy</span>
-            <span>Low Privacy</span>
+            <span>High Privacy (ε=1)</span>
+            <span>Low Privacy (ε=100)</span>
           </div>
 
           {/* Status pill */}
