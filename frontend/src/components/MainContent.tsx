@@ -6,7 +6,6 @@ import { useAppStore } from '@/store/appStore'
 import { UploadConfig } from './UploadConfig'
 import { GenerateProgress } from './GenerateProgress'
 import { Results } from './Results'
-import { HackerAttack } from './HackerAttack'
 import { Download } from './Download'
 
 const SECTION_VARIANTS = {
@@ -63,9 +62,6 @@ export function MainContent() {
         {phase === 'results' && (
           <motion.div key="results" {...SECTION_VARIANTS}>
             <Results />
-            <ScrollReveal>
-              <HackerAttack />
-            </ScrollReveal>
             <ScrollReveal>
               <Download />
             </ScrollReveal>

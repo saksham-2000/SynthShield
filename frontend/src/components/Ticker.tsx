@@ -1,20 +1,24 @@
-const ITEMS: { text: string }[] = [
-  { text: 'Works on upto 50,000 rows' },
-  { text: 'Laplace Noise Mechanism' },
-  { text: 'LoRA powered synthesis' },
-  { text: 'Client-Side privacy' },
-  { text: 'Audit-ready certificate' },
+// Each item cycles through the rainbow with a staggered delay
+const ITEMS = [
+  'Works on upto 50,000 rows',
+  'Laplace Noise Mechanism',
+  'LoRA powered synthesis',
+  'Client-Side privacy',
+  'Audit-ready certificate',
 ]
 
 function TickerRow() {
   return (
     <>
-      {ITEMS.map((item, i) => (
+      {ITEMS.map((text, i) => (
         <span key={i} className="shrink-0 flex items-center">
-          <span className="text-sm font-semibold tracking-wide text-emerald-400 px-2">
-            {item.text}
+          <span
+            className="ticker-rainbow text-sm font-semibold tracking-wide px-2"
+            style={{ animationDelay: `${i * 1.1}s` }}
+          >
+            {text}
           </span>
-          <span className="text-zinc-700 mx-8">·</span>
+          <span className="text-zinc-800 mx-8 select-none">·</span>
         </span>
       ))}
     </>
@@ -24,7 +28,7 @@ function TickerRow() {
 export function Ticker() {
   return (
     <div
-      className="w-full bg-zinc-900/50 border-y border-zinc-800 overflow-hidden py-3.5 select-none"
+      className="ticker-fade w-full overflow-hidden py-3.5 select-none"
       aria-hidden="true"
     >
       <div className="ticker-track flex whitespace-nowrap">

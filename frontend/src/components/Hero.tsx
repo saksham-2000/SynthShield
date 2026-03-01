@@ -1,3 +1,8 @@
+'use client'
+
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+
 export function Hero() {
   return (
     <section
@@ -18,15 +23,32 @@ export function Hero() {
       />
 
       <div className="relative max-w-4xl mx-auto px-8">
-        <h1 className="text-6xl md:text-8xl font-bold tracking-tight text-zinc-100 leading-[1.05]">
-          Privacy-guaranteed
-          <br />
-          <span className="text-emerald-500">synthetic data.</span>
-        </h1>
+        {/* Icon + Heading */}
+        <div className="flex flex-col items-center gap-5">
+          <Image
+            src="/privacy-icon.svg"
+            alt="SynthShield"
+            width={56}
+            height={56}
+            className="invert opacity-70"
+          />
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-zinc-100 leading-[1.05]">
+            SynthShield
+            <br />
+            <span className="text-emerald-500 text-4xl md:text-5xl font-semibold">
+              Guaranteed Synthetic Data
+            </span>
+          </h1>
+        </div>
 
-        <p className="text-zinc-400 text-lg max-w-md mx-auto mt-6 leading-relaxed">
+        {/* Subtitle — faded, grows slightly on hover */}
+        <motion.p
+          className="text-zinc-500/60 text-base max-w-md mx-auto mt-6 leading-relaxed cursor-default"
+          whileHover={{ scale: 1.04, color: 'rgba(161,161,170,0.8)' }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+        >
           Transform sensitive records into mathematically private synthetic clones.
-        </p>
+        </motion.p>
       </div>
     </section>
   )

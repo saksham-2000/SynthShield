@@ -76,8 +76,26 @@ function HistogramCard({ hist }: { hist: ColumnHistogram }) {
   )
 }
 
-// ── Privacy Lookup / CSV Search ──────────────────────────────────────────────
+// ── Privacy Lookup helpers ───────────────────────────────────────────────────
 
+/** Renders text with the matching query fragment highlighted */
+function Highlight({ text, query }: { text: string; query: string }) {
+  if (!query) return <>{text}</>
+  const lower = text.toLowerCase()
+  const idx = lower.indexOf(query)
+  if (idx === -1) return <>{text}</>
+  return (
+    <>
+      {text.slice(0, idx)}
+      <mark className="bg-emerald-500/25 text-emerald-300 not-italic rounded px-0.5">
+        {text.slice(idx, idx + query.length)}
+      </mark>
+      {text.slice(idx + query.length)}
+    </>
+  )
+}
+
+/** Shows only the columns that contain the query (+ first col for context) */
 function RowCard({
   row,
   headers,
@@ -89,16 +107,33 @@ function RowCard({
   query: string
   accentClass: string
 }) {
-  const display = headers.slice(0, 5)
+  // Always show first col for identity context; add every col that matches
+  const matchingCols = headers.filter((h) =>
+    String(row[h] ?? '').toLowerCase().includes(query),
+  )
+  const displayCols = Array.from(new Set([headers[0], ...matchingCols]))
+
   return (
-    <div className="bg-zinc-800/50 rounded-lg p-2.5 text-xs space-y-0.5">
-      {display.map((h) => {
+    <div className="bg-zinc-800/50 rounded-lg p-2.5 text-xs space-y-1">
+      {displayCols.map((h) => {
         const val = String(row[h] ?? '')
-        const hit = val.toLowerCase().includes(query)
+        const isMatch = matchingCols.includes(h)
         return (
-          <div key={h} className="flex gap-2">
-            <span className="text-zinc-600 shrink-0 w-24 truncate">{h}:</span>
-            <span className={hit ? `font-semibold ${accentClass}` : 'text-zinc-300'}>{val}</span>
+          <div key={h} className="flex gap-2 items-start">
+            {/* Column name badge */}
+            <span
+              className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium border ${
+                isMatch
+                  ? `${accentClass} border-current/30 bg-current/5`
+                  : 'text-zinc-600 border-zinc-700 bg-transparent'
+              }`}
+            >
+              {h}
+            </span>
+            {/* Value with inline highlight */}
+            <span className="text-zinc-300 break-all">
+              {isMatch ? <Highlight text={val} query={query} /> : val}
+            </span>
           </div>
         )
       })}
@@ -119,10 +154,14 @@ function DataSearch({
   const q = query.trim().toLowerCase()
 
   const origMatches = q
-    ? originalRows.filter((row) => headers.some((h) => String(row[h] ?? '').toLowerCase().includes(q)))
+    ? originalRows.filter((row) =>
+        headers.some((h) => String(row[h] ?? '').toLowerCase().includes(q)),
+      )
     : []
   const synthMatches = q
-    ? syntheticRows.filter((row) => headers.some((h) => String(row[h] ?? '').toLowerCase().includes(q)))
+    ? syntheticRows.filter((row) =>
+        headers.some((h) => String(row[h] ?? '').toLowerCase().includes(q)),
+      )
     : []
 
   const privacyPreserved = q && origMatches.length > 0 && synthMatches.length === 0
@@ -168,9 +207,15 @@ function DataSearch({
             {origMatches.length === 0 ? (
               <p className="text-zinc-700 text-sm py-2">No results found in original data.</p>
             ) : (
-              <div className="space-y-2 max-h-[220px] overflow-y-auto">
+              <div className="space-y-2 max-h-[260px] overflow-y-auto">
                 {origMatches.slice(0, 6).map((row, i) => (
-                  <RowCard key={i} row={row} headers={headers} query={q} accentClass="text-cyan-300" />
+                  <RowCard
+                    key={i}
+                    row={row}
+                    headers={headers}
+                    query={q}
+                    accentClass="text-cyan-400"
+                  />
                 ))}
                 {origMatches.length > 6 && (
                   <p className="text-zinc-600 text-xs text-center pt-1">
@@ -219,9 +264,15 @@ function DataSearch({
             ) : synthMatches.length === 0 ? (
               <p className="text-zinc-700 text-sm py-2">No results found in synthetic data.</p>
             ) : (
-              <div className="space-y-2 max-h-[220px] overflow-y-auto">
+              <div className="space-y-2 max-h-[260px] overflow-y-auto">
                 {synthMatches.slice(0, 6).map((row, i) => (
-                  <RowCard key={i} row={row} headers={headers} query={q} accentClass="text-red-300" />
+                  <RowCard
+                    key={i}
+                    row={row}
+                    headers={headers}
+                    query={q}
+                    accentClass="text-red-400"
+                  />
                 ))}
                 {synthMatches.length > 6 && (
                   <p className="text-zinc-600 text-xs text-center pt-1">
@@ -256,7 +307,6 @@ export function Results() {
 
   return (
     <section className="max-w-4xl mx-auto px-8 py-12 border-t border-zinc-800">
-      {/* Section header */}
       <p className="text-zinc-600 text-xs uppercase tracking-widest font-medium mb-1">03 RESULTS</p>
       <h2 className="text-xl font-semibold text-zinc-100 tracking-tight mb-8">
         Distribution comparison
@@ -265,7 +315,6 @@ export function Results() {
       {/* KL Divergence panel */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 mb-8">
         <div className="flex flex-col md:flex-row md:items-start gap-6">
-          {/* Big KL number */}
           <div className="shrink-0">
             <p className="text-zinc-600 text-xs uppercase tracking-widest mb-1">KL DIVERGENCE</p>
             <p className={`text-4xl font-bold ${klColor}`}>{meanKlDivergence.toFixed(4)}</p>
@@ -277,8 +326,6 @@ export function Results() {
                   : 'Degraded fidelity'}
             </p>
           </div>
-
-          {/* Per-column bars */}
           <div className="flex-1 space-y-2">
             {histograms.map((h) => {
               const barColor =
@@ -288,10 +335,7 @@ export function Results() {
                 <div key={h.column} className="flex items-center gap-3">
                   <span className="text-zinc-500 text-xs w-24 truncate shrink-0">{h.column}</span>
                   <div className="flex-1 bg-zinc-800 rounded-full h-[3px] overflow-hidden">
-                    <div
-                      className="h-full rounded-full"
-                      style={{ width: `${barWidth}%`, background: barColor }}
-                    />
+                    <div className="h-full rounded-full" style={{ width: `${barWidth}%`, background: barColor }} />
                   </div>
                   <span className="text-zinc-600 text-xs w-12 text-right shrink-0">
                     {h.klDivergence.toFixed(4)}
@@ -323,17 +367,10 @@ export function Results() {
       </div>
 
       {histograms.length === 0 && (
-        <p className="text-zinc-700 text-sm text-center py-12">
-          No columns available for visualization.
-        </p>
+        <p className="text-zinc-700 text-sm text-center py-12">No columns available for visualization.</p>
       )}
 
-      {/* Privacy lookup search */}
-      <DataSearch
-        originalRows={originalRows}
-        syntheticRows={syntheticRows}
-        headers={headers}
-      />
+      <DataSearch originalRows={originalRows} syntheticRows={syntheticRows} headers={headers} />
     </section>
   )
 }
