@@ -14,7 +14,11 @@ SynthShield lets you upload a sensitive CSV, tune a privacy budget, and get back
 
 ---
 
-Built in 24 hours at **CheeseHacks 2026** (Feb 28 - Mar 1, 2026).
+## Built at CheeseHacks 2026
+
+Everything in this repo was written between February 28 1PM CST and March 1, 2026 11 AM CST.
+
+**Hackathon:** [CheeseHacks 2026](https://cheesehacks.dev/)
 
 **Team: Cheddar++**
 
@@ -294,14 +298,7 @@ Cloud Run (backend)
 
 ---
 
-## Built at CheeseHacks 2026
 
-Everything in this repo was written between February 28 and March 1, 2026.
-
-**Hackathon:** CheeseHacks 2026
-**Event:** https://cheesehacks.dev/
-
----
 
 ## License
 
