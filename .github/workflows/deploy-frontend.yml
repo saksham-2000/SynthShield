@@ -38,11 +38,20 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      # 4. Allow Docker to push to Artifact Registry
+      # 4. Create Artifact Registry repo if it doesn't exist yet (idempotent)
+      - name: Ensure Artifact Registry repository exists
+        run: |
+          gcloud artifacts repositories create synthshield \
+            --repository-format=docker \
+            --location=us-central1 \
+            --description="SynthShield Docker images" \
+            --quiet 2>/dev/null || true
+
+      # 5. Allow Docker to push to Artifact Registry
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
 
-      # 5. Build the image from the frontend/ subfolder
+      # 6. Build the image from the frontend/ subfolder
       - name: Build Docker image
         working-directory: frontend
         run: |
@@ -51,13 +60,13 @@ jobs:
             -t ${{ env.REGISTRY }}/frontend:latest \
             .
 
-      # 6. Push both tags
+      # 7. Push both tags
       - name: Push Docker image
         run: |
           docker push ${{ env.REGISTRY }}/frontend:${{ github.sha }}
           docker push ${{ env.REGISTRY }}/frontend:latest
 
-      # 7. Deploy to Cloud Run (scales to 0 when idle → ~$0 when not in use)
+      # 8. Deploy to Cloud Run (scales to 0 when idle → ~$0 when not in use)
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy ${{ env.SERVICE }} \
@@ -72,7 +81,7 @@ jobs:
             --max-instances 3 \
             --quiet
 
-      # 8. Print the live URL
+      # 9. Print the live URL
       - name: Print service URL
         run: |
           gcloud run services describe ${{ env.SERVICE }} \
