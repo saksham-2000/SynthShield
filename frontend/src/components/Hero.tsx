@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 export function Hero() {
   return (
     <section
-      className="relative w-full pt-32 pb-4 text-center overflow-hidden"
+      className="relative w-full pt-32 pb-24 text-center overflow-hidden"
       style={{
         background:
           'radial-gradient(ellipse 80% 50% at 50% -10%, rgba(16,185,129,0.08), transparent)',
@@ -28,23 +28,19 @@ export function Hero() {
           <Image
             src="/privacy-icon.svg"
             alt="SynthShield"
-            width={96}
-            height={96}
+            width={144}
+            height={144}
             className="invert opacity-70"
           />
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-zinc-100 leading-[1.05]">
+          <h1 className="text-8xl md:text-10xl font-bold tracking-tight text-yellow-100 leading-[1.05]">
             SynthShield
-            <br />
-            <span className="text-emerald-500 text-4xl md:text-5xl font-semibold">
-              Guaranteed Synthetic Data
-            </span>
           </h1>
         </div>
 
-        {/* Subtitle — main pitch, complementary cyan, zooms on hover */}
+        {/* Subtitle — main pitch, soft mint green (distinct from ticker rainbow), zooms on hover */}
         <motion.p
-          className="text-cyan-400/70 text-base max-w-lg mx-auto mt-6 leading-relaxed cursor-default font-medium"
-          whileHover={{ scale: 1.09, color: 'rgba(103,232,249,1)' }}
+          className="font-bold text-orange-300 text-2xl max-w-xl mx-auto mt-4 leading-relaxed cursor-default"
+          whileHover={{ scale: 1.10, color: 'rgba(247,180,20,1)' }}
           transition={{ duration: 0.35, ease: 'easeOut' }}
         >
           Safely train models with statistically equivalent synthetic data.

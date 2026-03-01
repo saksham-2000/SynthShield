@@ -10,8 +10,8 @@ import { ParsedDataset } from '@/lib/types'
 // ── Epsilon helpers ─────────────────────────────────────────────────────────
 
 function epsilonColor(eps: number) {
-  if (eps <= 20) return 'text-emerald-500'
-  if (eps <= 50) return 'text-amber-400'
+  if (eps <= 20) return 'text-emerald-100'
+  if (eps <= 50) return 'text-amber-200'
   return 'text-red-400'
 }
 

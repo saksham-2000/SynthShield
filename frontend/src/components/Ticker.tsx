@@ -11,7 +11,11 @@ function TickerRow() {
   return (
     <>
       {ITEMS.map((text, i) => (
-        <span key={i} className="shrink-0 flex items-center">
+        <span
+          key={i}
+          className="ticker-item shrink-0 flex items-center"
+          style={{ animationDelay: `${i * 0.8}s` }}
+        >
           <span
             className="ticker-rainbow text-sm font-semibold tracking-wide px-2"
             style={{ animationDelay: `${i * 1.1}s` }}

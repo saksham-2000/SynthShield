@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Github, RotateCcw } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
 
@@ -8,16 +9,46 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 h-[52px] flex items-center justify-between px-6 bg-[#09090b]/80 backdrop-blur-xl border-b border-zinc-800">
-      {/* GitHub link */}
-      <a
-        href="https://github.com/saksham-2000/SynthShield"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-2 text-zinc-400 hover:text-zinc-100 transition-colors select-none group"
-      >
-        <Github className="w-5 h-5 group-hover:text-zinc-100 transition-colors" />
-        <span className="text-sm font-medium tracking-wide hidden sm:inline">GitHub</span>
-      </a>
+      {/* Left side: GitHub + CheeseHacks */}
+      <div className="flex items-center gap-5">
+        {/* GitHub link */}
+        <a
+          href="https://github.com/saksham-2000/SynthShield"
+          // target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 text-zinc-400 hover:text-zinc-100 transition-colors select-none group"
+        >
+          <Github className="w-5 h-5 group-hover:text-zinc-100 transition-colors" />
+          <span className="text-sm font-medium tracking-wide hidden sm:inline">GitHub</span>
+        </a>
+
+        {/* Divider */}
+        <span className="w-px h-4 bg-zinc-700 hidden sm:block" />
+
+        {/* CheeseHacks badge */}
+        <div className="flex items-center gap-2 select-none">
+          <Image
+            src="/cheesehacks-icon.png"
+            alt="CheeseHacks"
+            width={22}
+            height={22}
+            className="rounded-sm opacity-90"
+          />
+          {/* <span className="text-sm font-medium tracking-wide text-zinc-400 hidden sm:inline">
+            CheeseHacks
+          </span> */}
+          <a
+          href="https://cheesehacks.dev/"
+          // target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 text-zinc-400 hover:text-zinc-100 transition-colors select-none group"
+        >
+          {/* <Github className="w-5 h-5 group-hover:text-zinc-100 transition-colors" /> */}
+          <span className="text-sm font-medium tracking-wide hidden sm:inline">CheeseHacks</span>
+        </a>
+
+        </div>
+      </div>
 
       {/* Right side */}
       <div className="flex items-center gap-2">
