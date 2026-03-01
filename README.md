@@ -189,6 +189,10 @@ const BACKEND_URL = 'http://localhost:8080/process'
 
 ```
 synth-shield/
+  model/                         # Colab pipelines for DP training and synthetic generation
+    training_pipeline.py         # LoRA + Opacus fine-tuning of T5-small (exported from Colab)
+    generation_pipeline.py       # Inference with trained adapters, outputs synthetic *_dp.csv
+    healthcare_dataset.csv       # Sample training data
   backend/
     src/
       main.py                  # FastAPI app, /process endpoint, artifact resolution logic
