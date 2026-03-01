@@ -1,7 +1,6 @@
 'use client'
 
-import Image from 'next/image'
-import { RotateCcw } from 'lucide-react'
+import { Github, RotateCcw } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
 
 export function Navbar() {
@@ -9,22 +8,16 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 h-[52px] flex items-center justify-between px-6 bg-[#09090b]/80 backdrop-blur-xl border-b border-zinc-800">
-      {/* Logo */}
-      <div className="flex items-center gap-2.5 select-none">
-        <Image
-          src="/privacy-icon.svg"
-          alt="SynthShield"
-          width={20}
-          height={20}
-          className="invert opacity-80"
-        />
-        <span className="text-zinc-100 font-semibold text-sm tracking-wide">
-          SynthShield{' '}
-          <span className="text-zinc-500 font-normal hidden sm:inline">
-            — Guaranteed Synthetic Data
-          </span>
-        </span>
-      </div>
+      {/* GitHub link */}
+      <a
+        href="https://github.com/saksham-2000/SynthShield"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 text-zinc-400 hover:text-zinc-100 transition-colors select-none group"
+      >
+        <Github className="w-5 h-5 group-hover:text-zinc-100 transition-colors" />
+        <span className="text-sm font-medium tracking-wide hidden sm:inline">GitHub</span>
+      </a>
 
       {/* Right side */}
       <div className="flex items-center gap-2">

@@ -28,8 +28,8 @@ export function Hero() {
           <Image
             src="/privacy-icon.svg"
             alt="SynthShield"
-            width={56}
-            height={56}
+            width={96}
+            height={96}
             className="invert opacity-70"
           />
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-zinc-100 leading-[1.05]">
