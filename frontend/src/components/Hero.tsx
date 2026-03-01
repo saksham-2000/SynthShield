@@ -41,13 +41,13 @@ export function Hero() {
           </h1>
         </div>
 
-        {/* Subtitle — faded, grows slightly on hover */}
+        {/* Subtitle — main pitch, complementary cyan, zooms on hover */}
         <motion.p
-          className="text-zinc-500/60 text-base max-w-md mx-auto mt-6 leading-relaxed cursor-default"
-          whileHover={{ scale: 1.04, color: 'rgba(161,161,170,0.8)' }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
+          className="text-cyan-400/70 text-base max-w-lg mx-auto mt-6 leading-relaxed cursor-default font-medium"
+          whileHover={{ scale: 1.09, color: 'rgba(103,232,249,1)' }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
         >
-          Transform sensitive records into mathematically private synthetic clones.
+          Safely train models with statistically equivalent synthetic data.
         </motion.p>
       </div>
     </section>
