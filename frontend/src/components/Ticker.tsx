@@ -1,10 +1,13 @@
 // Each item cycles through the rainbow with a staggered delay
 const ITEMS = [
-  'Works on upto 50,000 rows',
-  'Laplace Noise Mechanism',
-  'LoRA powered synthesis',
-  'Client-Side privacy',
-  'Audit-ready certificate',
+  'Differential Privacy (ε-δ)',
+  'DP-SGD via Opacus',
+  'T5-small + LoRA',
+  'RDP Accountant',
+  'KL Divergence Verified',
+  'HIPAA / GDPR Ready',
+  'Works on 50,000+ rows',
+  'Audit-ready Certificate',
 ]
 
 function TickerRow() {
