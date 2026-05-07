@@ -10,13 +10,10 @@ SynthShield lets you upload a sensitive CSV, tune a privacy budget, and get back
 
 **Live demo:** https://synthshield-frontend-497796918458.us-central1.run.app
 <br>
-**GitHub:** https://github.com/saksham-2000/SynthShield
 
 ---
 
 ## Built at CheeseHacks 2026
-
-Everything in this repo was written between February 28 1PM CST and March 1, 2026 11 AM CST.
 
 **Hackathon:** [CheeseHacks 2026](https://cheesehacks.dev/)
 
